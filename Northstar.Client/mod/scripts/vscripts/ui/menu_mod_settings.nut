@@ -41,7 +41,7 @@ struct ConVarData {
 	bool isCustomButton = false
 	void functionref() onPress
 
-	array<string> values
+	array< string > values
 	var customMenu
 	bool hasCustomMenu = false
 }
@@ -51,14 +51,14 @@ struct {
 	int scrollOffset = 0
 	bool updatingList = false
 
-	array<ConVarData> conVarList
+	array< ConVarData > conVarList
 	// if people use searches - i hate them but it'll do : )
-	array<ConVarData> filteredList
+	array< ConVarData > filteredList
 	string filterText = ""
 	table< int, int > enumRealValues
-	table<string, bool> setFuncs
-	array<var> modPanels
-	array<MS_Slider> sliders
+	table< string, bool > setFuncs
+	array< var > modPanels
+	array< MS_Slider > sliders
 	table settingsTable
 	string currentMod = ""
 	string currentCat = ""
@@ -77,7 +77,7 @@ void function AddModSettingsMenu()
 void function InitModMenu()
 {
 	file.menu = GetMenu( "ModSettings" )
-	//DumpStack( 2 )
+	// DumpStack( 2 )
 	AddMenuFooterOption( file.menu, BUTTON_B, "#B_BUTTON_BACK", "#BACK" )
 
 	// Safe I/O stuff
@@ -105,9 +105,9 @@ void function InitModMenu()
 		}
 	}*/
 
-	/////////////////////////////
-	// BASE NORTHSTAR SETTINGS //
-	/////////////////////////////
+	// // // // // // // // // // // // // // /
+	// BASE NORTHSTAR SETTINGS // 
+	// // // // // // // // // // // // // // /
 
 	// most of these are overrided in the cfg, maybe ask bob to remove the cfg stuff from there?
 	// at the same time, might fuck with dedis so idk.
@@ -136,7 +136,7 @@ void function InitModMenu()
 	AddConVarSettingEnum( "filter_mods", "Very Huge Enum Example", split( "Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you", " " ) )
 	*/
 	// Nuke weird rui on filter switch :D
-	//RuiSetString( Hud_GetRui( Hud_GetChild( file.menu, "SwtBtnShowFilter" ) ), "buttonText", "" )
+	// RuiSetString( Hud_GetRui( Hud_GetChild( file.menu, "SwtBtnShowFilter" ) ), "buttonText", "" )
 
 	file.modPanels = GetElementsByClassname( file.menu, "ModButton" )
 
@@ -147,7 +147,7 @@ void function InitModMenu()
 	for ( int i = 0; i < len; i++ )
 	{
 		
-		//AddButtonEventHandler( button, UIE_CHANGE, OnSettingButtonPressed  )
+		// AddButtonEventHandler( button, UIE_CHANGE, OnSettingButtonPressed  )
 		// get panel
 		var panel = file.modPanels[i]
 
@@ -200,7 +200,7 @@ void function InitModMenu()
 		Hud_AddEventHandler( child, UIE_CLICK, CustomButtonPressed )
 	}
 
-	//Hud_AddEventHandler( Hud_GetChild( file.menu, "BtnModsSearch" ), UIE_LOSE_FOCUS, OnFilterTextPanelChanged )
+	// Hud_AddEventHandler( Hud_GetChild( file.menu, "BtnModsSearch" ), UIE_LOSE_FOCUS, OnFilterTextPanelChanged )
 	Hud_AddEventHandler( Hud_GetChild( file.menu, "BtnFiltersClear" ), UIE_CLICK, OnClearButtonPressed )
 	// mouse delta 
 	AddMouseMovementCaptureHandler( file.menu, UpdateMouseDeltaBuffer )
@@ -281,9 +281,9 @@ void functionref() function ResetConVarEventHandler( int modIndex )
 	}
 }
 
-////////////////////////
+// // // // // // // // // // // // 
 // slider
-////////////////////////
+// // // // // // // // // // // // 
 void function UpdateMouseDeltaBuffer( int x, int y )
 {
 	mouseDeltaBuffer.deltaX += x
@@ -300,7 +300,7 @@ void function FlushMouseDeltaBuffer()
 
 void function SliderBarUpdate()
 {
-	if ( file.filteredList.len() <= 15 )
+	if ( file.filteredList.len() < = 15 )
 	{
 		FlushMouseDeltaBuffer()
 		return
@@ -312,15 +312,15 @@ void function SliderBarUpdate()
 
 	Hud_SetFocused( sliderButton )
 
-	float minYPos = -40.0 * ( GetScreenSize()[ 1 ] / 1080.0 ) // why the hardcoded positions?!?!?!?!?!
-	float maxHeight = 615.0  * ( GetScreenSize()[ 1 ] / 1080.0 )
+	float minYPos = -40.0 * ( GetScreenSize()[1] / 1080.0 ) // why the hardcoded positions?!?!?!?!?!
+	float maxHeight = 615.0  * ( GetScreenSize()[1] / 1080.0 )
 	float maxYPos = minYPos - ( maxHeight - Hud_GetHeight( sliderPanel ) )
 	float useableSpace = ( maxHeight - Hud_GetHeight( sliderPanel ) )
 
 	float jump = minYPos - ( useableSpace / ( float( file.filteredList.len() ) ) )
 
 	// got local from official respaw scripts, without untyped throws an error
-	local pos =	Hud_GetPos( sliderButton )[ 1 ]
+	local pos =	Hud_GetPos( sliderButton )[1]
 	local newPos = pos - mouseDeltaBuffer.deltaY
 	FlushMouseDeltaBuffer()
 
@@ -343,8 +343,8 @@ void function UpdateListSliderHeight()
 	
 	float mods = float ( file.filteredList.len() )
 
-	float maxHeight = 615.0 * ( GetScreenSize()[ 1 ] / 1080.0 ) // why the hardcoded 320/80???
-	float minHeight = 80.0 * ( GetScreenSize()[ 1 ] / 1080.0 )
+	float maxHeight = 615.0 * ( GetScreenSize()[1] / 1080.0 ) // why the hardcoded 320/80???
+	float minHeight = 80.0 * ( GetScreenSize()[1] / 1080.0 )
 
 	float height = maxHeight * ( float( BUTTONS_PER_PAGE ) / mods )
 
@@ -361,11 +361,11 @@ void function UpdateList()
 	Hud_SetFocused( Hud_GetChild( file.menu, "BtnModsSearch" ) )
 	file.updatingList = true
 
-	array<ConVarData> filteredList = []
+	array< ConVarData > filteredList = []
 	
-	array<string> filters = split( file.filterText, "," )
-	array<ConVarData> list = file.conVarList
-	if ( filters.len() <= 0 )
+	array< string > filters = split( file.filterText, "," )
+	array< ConVarData > list = file.conVarList
+	if ( filters.len() < = 0 )
 		filters.append( "" )
 	foreach( string f in filters )
 	{
@@ -395,8 +395,8 @@ void function UpdateList()
 				if ( c.isModName )
 				{
 					lastModNameInFilter = c.modName
-					array<ConVarData> modVars = GetAllVarsInMod( list, c.modName )
-					if ( filteredList.len() <= 0 && modVars[ 0 ].spaceType == eEmptySpaceType.None )
+					array< ConVarData > modVars = GetAllVarsInMod( list, c.modName )
+					if ( filteredList.len() < = 0 && modVars[0].spaceType == eEmptySpaceType.None )
 						filteredList.extend( modVars.slice( 1, modVars.len() ) )
 					else 
 						filteredList.extend( modVars )
@@ -406,8 +406,8 @@ void function UpdateList()
 				{
 					if ( lastModNameInFilter != c.modName )
 					{
-						array<ConVarData> modVars = GetModConVarDatas( list, curModTitleIndex )
-						if ( filteredList.len() <= 0 && modVars[ 0 ].spaceType == eEmptySpaceType.None )
+						array< ConVarData > modVars = GetModConVarDatas( list, curModTitleIndex )
+						if ( filteredList.len() < = 0 && modVars[0].spaceType == eEmptySpaceType.None )
 							filteredList.extend( modVars.slice( 1, modVars.len() ) )
 						else
 							filteredList.extend( modVars )
@@ -420,8 +420,8 @@ void function UpdateList()
 				else {
 					if ( lastModNameInFilter != c.modName )
 					{
-						array<ConVarData> modVars = GetModConVarDatas( list, curModTitleIndex )
-						if ( filteredList.len() <= 0 && modVars[ 0 ].spaceType == eEmptySpaceType.None )
+						array< ConVarData > modVars = GetModConVarDatas( list, curModTitleIndex )
+						if ( filteredList.len() < = 0 && modVars[0].spaceType == eEmptySpaceType.None )
 							filteredList.extend( modVars.slice( 1, modVars.len() ) )
 						else
 							filteredList.extend( modVars )
@@ -457,30 +457,30 @@ void function UpdateList()
 	file.updatingList = false
 }
 
-array<ConVarData> function GetModConVarDatas( array<ConVarData> arr, int index )
+array< ConVarData > function GetModConVarDatas( array< ConVarData > arr, int index )
 {
-	if ( index <= 1 )
+	if ( index < = 1 )
 		return [ arr[ index - 1 ], arr[ index ], arr[ index + 1 ] ]	
 	return [ arr[ index - 2 ], arr[ index - 1 ], arr[ index ], arr[ index + 1 ] ]	
 }
 
-array<ConVarData> function GetCatConVarDatas( int index )
+array< ConVarData > function GetCatConVarDatas( int index )
 {
 	if ( index == 0 )
 		return [ file.conVarList[ index ] ]	
 	return [ file.conVarList[ index - 1 ], file.conVarList[ index ] ]	
 }
 
-array<ConVarData> function GetAllVarsInCategory( array<ConVarData> arr, string catName )
+array< ConVarData > function GetAllVarsInCategory( array< ConVarData > arr, string catName )
 {
-	array<ConVarData> vars = []
+	array< ConVarData > vars = []
 	for ( int i = 0; i < arr.len(); i++ )
 	{
 		ConVarData c = arr[i]
 		if ( c.catName == catName ) 
 		{
 			vars.append( arr[i] )
-			//printt( file.conVarList[i].conVar + " is in mod " + file.conVarList[i].modName )
+			// printt( file.conVarList[i].conVar + " is in mod " + file.conVarList[i].modName )
 		}
 	}
 	/*ConVarData empty
@@ -489,16 +489,16 @@ array<ConVarData> function GetAllVarsInCategory( array<ConVarData> arr, string c
 	return vars
 }
 
-array<ConVarData> function GetAllVarsInMod( array<ConVarData> arr, string modName )
+array< ConVarData > function GetAllVarsInMod( array< ConVarData > arr, string modName )
 {
-	array<ConVarData> vars = []
+	array< ConVarData > vars = []
 	for ( int i = 0; i < arr.len(); i++ )
 	{
 		ConVarData c = arr[i]
 		if ( c.modName == modName ) 
 		{
 			vars.append( arr[i] )
-			//printt( file.conVarList[i].conVar + " is in mod " + file.conVarList[i].modName )
+			// printt( file.conVarList[i].conVar + " is in mod " + file.conVarList[i].modName )
 		}
 	}
 	/*ConVarData empty
@@ -581,8 +581,8 @@ void function SetModMenuNameText( var button )
 	Hud_SetVisible( enumButton, !conVar.isCategoryName && conVar.isEnumSetting )
 	Hud_SetVisible( modTitle, conVar.isModName )
 	Hud_SetVisible( customMenuButton, false )
-	float scaleX = GetScreenSize()[ 1 ] / 1080.0
-	float scaleY = GetScreenSize()[ 1 ] / 1080.0
+	float scaleX = GetScreenSize()[1] / 1080.0
+	float scaleY = GetScreenSize()[1] / 1080.0
 	if ( conVar.sliderEnabled )
 	{
 		Hud_SetSize( slider, int( 320 * scaleX ), int( 45 * scaleY ) )
@@ -622,8 +622,8 @@ void function SetModMenuNameText( var button )
 		Hud_SetSize( resetButton, int( 120 * scaleX ), int( 40 * scaleY ) )
 		Hud_SetPos( label, 0, 0 )
 		Hud_SetSize( label, int( scaleX * ( 1180 - 420 - 85 ) ), int( scaleY * 40 ) )
-		//Hud_SetSize( customMenuButton, int( 85 * scaleX ), int( 40 * scaleY ) )
-		//Hud_SetVisible( customMenuButton, conVar.hasCustomMenu )
+		// Hud_SetSize( customMenuButton, int( 85 * scaleX ), int( 40 * scaleY ) )
+		// Hud_SetVisible( customMenuButton, conVar.hasCustomMenu )
 		Hud_SetVisible( label, true )
 		Hud_SetVisible( textField, false )
 		Hud_SetVisible( enumButton, false )
@@ -642,10 +642,10 @@ void function SetModMenuNameText( var button )
 		if ( conVar.sliderEnabled )
 			Hud_SetSize( label, int( scaleX * ( 375 + 85 ) ), int( scaleY * 40 ) )
 		else Hud_SetSize( label, int( scaleX * ( 375 + 405 ) ), int( scaleY * 40 ) )
-		//Hud_SetSize( customMenuButton, 0, 40 )
+		// Hud_SetSize( customMenuButton, 0, 40 )
 		Hud_SetVisible( label, true )
 		Hud_SetVisible( textField, true )
-		//Hud_SetVisible( enumButton, true )
+		// Hud_SetVisible( enumButton, true )
 		Hud_SetVisible( resetButton, true )
 	}
 }
@@ -659,7 +659,7 @@ void function CustomButtonPressed( var button )
 
 void function OnScrollDown( var button )
 {
-	if ( file.filteredList.len() <= BUTTONS_PER_PAGE ) return
+	if ( file.filteredList.len() < = BUTTONS_PER_PAGE ) return
 	file.scrollOffset += 5
 	if ( file.scrollOffset + BUTTONS_PER_PAGE > file.filteredList.len() ) {
 		file.scrollOffset = file.filteredList.len() - BUTTONS_PER_PAGE
@@ -686,12 +686,12 @@ void function UpdateListSliderPosition()
 	
 	float mods = float ( file.filteredList.len() )
 
-	float minYPos = -40.0 * ( GetScreenSize()[ 1 ] / 1080.0 )
-	float useableSpace = ( 615.0 * ( GetScreenSize()[ 1 ] / 1080.0 ) - Hud_GetHeight( sliderPanel ) )
+	float minYPos = -40.0 * ( GetScreenSize()[1] / 1080.0 )
+	float useableSpace = ( 615.0 * ( GetScreenSize()[1] / 1080.0 ) - Hud_GetHeight( sliderPanel ) )
 
 	float jump = minYPos - ( useableSpace / ( mods - float( BUTTONS_PER_PAGE ) ) * file.scrollOffset )
 
-	//jump = jump * ( GetScreenSize()[ 1 ] / 1080.0 )
+	// jump = jump * ( GetScreenSize()[1] / 1080.0 )
 
 	if ( jump > minYPos ) jump = minYPos
 
@@ -707,11 +707,11 @@ void function OnModMenuOpened()
 	
 	RegisterButtonPressedCallback( MOUSE_WHEEL_UP , OnScrollUp )
 	RegisterButtonPressedCallback( MOUSE_WHEEL_DOWN , OnScrollDown )
-	//RegisterButtonPressedCallback( KEY_F1, ToggleHideMenu )
+	// RegisterButtonPressedCallback( KEY_F1, ToggleHideMenu )
 
-	//SetBlurEnabled( false )
-	//UI_SetPresentationType( ePresentationType.INACTIVE )
-	//Hud_SetVisible( file.menu, true )
+	// SetBlurEnabled( false )
+	// UI_SetPresentationType( ePresentationType.INACTIVE )
+	// Hud_SetVisible( file.menu, true )
 	
 	OnFiltersChange( 0 )
 }
@@ -720,9 +720,9 @@ void function OnFiltersChange( var n )
 {
 	file.scrollOffset = 0
 	
-	//HideAllButtons()
+	// HideAllButtons()
 	
-	//RefreshModsArray()
+	// RefreshModsArray()
 	
 	UpdateList()
 	
@@ -735,14 +735,14 @@ void function OnModMenuClosed()
 	{
 		DeregisterButtonPressedCallback( MOUSE_WHEEL_UP , OnScrollUp )
 		DeregisterButtonPressedCallback( MOUSE_WHEEL_DOWN , OnScrollDown )
-		//DeregisterButtonPressedCallback( KEY_F1 , ToggleHideMenu )
+		// DeregisterButtonPressedCallback( KEY_F1 , ToggleHideMenu )
 	}
 	catch ( ex ) {}
 	
 	file.scrollOffset = 0
-	//UI_SetPresentationType( ePresentationType.DEFAULT )
-	//SetBlurEnabled( !IsMultiplayer() )
-	//Hud_SetVisible( file.menu, false )
+	// UI_SetPresentationType( ePresentationType.DEFAULT )
+	// SetBlurEnabled( !IsMultiplayer() )
+	// Hud_SetVisible( file.menu, false )
 }
 
 void function AddModTitle( string modName )
@@ -775,7 +775,7 @@ void function AddModTitle( string modName )
 	botBar.modName = modName
 	botBar.spaceType = eEmptySpaceType.BottomBar
 	file.conVarList.extend( [ topBar, modData, botBar ] )
-	file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] <- false
+	file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] < - false
 }
 
 void function AddModCategory( string catName )
@@ -855,7 +855,7 @@ void function AddConVarSettingSlider( string conVar, string displayName, float m
 	file.conVarList.append( data )
 }
 
-void function AddConVarSettingEnum( string conVar, string displayName, array<string> values )
+void function AddConVarSettingEnum( string conVar, string displayName, array< string > values )
 {
 	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] )
 		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a setting before a category and mod title!"
@@ -920,7 +920,7 @@ void function SendTextPanelChanges( var textPanel )
 				try 
 				{
 					SetConVarInt( c.conVar, newSetting.tointeger() )
-					file.settingsTable[ c.conVar ] <- newSetting
+					file.settingsTable[ c.conVar ] < - newSetting
 				}
 				catch ( ex )
 				{
@@ -938,13 +938,13 @@ void function SendTextPanelChanges( var textPanel )
 					break
 				}
 				SetConVarBool( c.conVar, newSetting == "1" )
-				file.settingsTable[ c.conVar ] <- newSetting
+				file.settingsTable[ c.conVar ] < - newSetting
 				break
 			case "float":
 				try
 				{
 					SetConVarFloat( c.conVar, newSetting.tofloat() )
-					file.settingsTable[ c.conVar ] <- newSetting
+					file.settingsTable[ c.conVar ] < - newSetting
 				}
 				catch ( ex )
 				{
@@ -962,17 +962,17 @@ void function SendTextPanelChanges( var textPanel )
 			case "float2":
 				try
 				{
-					array<string> split = split( newSetting, " " )
+					array< string > split = split( newSetting, " " )
 					if ( split.len() != 2 )
 					{
 						ThrowInvalidValue( "This setting is a float2, and only accepts a pair of numbers - you put in " + split.len() + "!" )
 						Hud_SetText( textPanel, GetConVarString( c.conVar ) )
 						break
 					}
-					vector settingTest = <split[ 0 ].tofloat(), split[ 1 ].tofloat(), 0>
+					vector settingTest = < split[0].tofloat(), split[1].tofloat(), 0 >
 
 					SetConVarString( c.conVar, newSetting )
-					file.settingsTable[ c.conVar ] <- newSetting
+					file.settingsTable[ c.conVar ] < - newSetting
 				}
 				catch ( ex )
 				{
@@ -985,17 +985,17 @@ void function SendTextPanelChanges( var textPanel )
 			case "float3":
 				try
 				{
-					array<string> split = split( newSetting, " " )
+					array< string > split = split( newSetting, " " )
 					if ( split.len() != 3 )
 					{
 						ThrowInvalidValue( "This setting is a float3, and only accepts a trio of numbers - you put in " + split.len() + "!" )
 						Hud_SetText( textPanel, GetConVarString( c.conVar ) )
 						break
 					}
-					vector settingTest = <split[ 0 ].tofloat(), split[ 1 ].tofloat(), 0>
+					vector settingTest = < split[0].tofloat(), split[1].tofloat(), 0 >
 
 					SetConVarString( c.conVar, newSetting )
-					file.settingsTable[ c.conVar ] <- newSetting
+					file.settingsTable[ c.conVar ] < - newSetting
 				}
 				catch ( ex )
 				{
@@ -1005,7 +1005,7 @@ void function SendTextPanelChanges( var textPanel )
 				break
 			default:
 				SetConVarString( c.conVar, newSetting )
-				file.settingsTable[ c.conVar ] <- newSetting
+				file.settingsTable[ c.conVar ] < - newSetting
 				break;
 		}
 		try
@@ -1046,7 +1046,7 @@ void function UpdateEnumSetting( var button )
 					
 	int enumVal = GetConVarInt( c.conVar )
 	if ( selectionVal == "next" ) // enum val += 1
-			enumVal = ( enumVal + 1 ) % c.values.len()
+		enumVal = ( enumVal + 1 ) % c.values.len()
 	else // enum val -= 1
 	{
 		enumVal--
@@ -1070,10 +1070,10 @@ void function OnClearButtonPressed( var button )
 
 string function SanitizeDisplayName( string displayName )
 {
-	array<string> parts = split( displayName, "^" )
+	array< string > parts = split( displayName, "^" )
 	string result = ""
 	if ( parts.len() == 1 )
-		return parts[ 0 ]
+		return parts[0]
 	foreach ( string p in parts )
 	{
 		if ( p == "" )
