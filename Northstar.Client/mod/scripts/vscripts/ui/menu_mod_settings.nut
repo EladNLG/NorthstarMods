@@ -77,7 +77,7 @@ void function AddModSettingsMenu()
 void function InitModMenu()
 {
 	file.menu = GetMenu( "ModSettings" )
-	// DumpStack( 2 )
+	// DumpStack(2)
 	AddMenuFooterOption( file.menu, BUTTON_B, "#B_BUTTON_BACK", "#BACK" )
 
 	// Safe I/O stuff
@@ -207,7 +207,7 @@ void function InitModMenu()
 
 	Hud_AddEventHandler( Hud_GetChild( file.menu, "BtnModsSearch" ), UIE_CHANGE, void function ( var inputField ) : (){
 		file.filterText = Hud_GetUTF8Text( inputField )
-		OnFiltersChange( 0 )
+		OnFiltersChange(0)
 	} )
 }
 
@@ -713,7 +713,7 @@ void function OnModMenuOpened()
 	// UI_SetPresentationType( ePresentationType.INACTIVE )
 	// Hud_SetVisible( file.menu, true )
 	
-	OnFiltersChange( 0 )
+	OnFiltersChange(0)
 }
 
 void function OnFiltersChange( var n )
@@ -775,13 +775,13 @@ void function AddModTitle( string modName )
 	botBar.modName = modName
 	botBar.spaceType = eEmptySpaceType.BottomBar
 	file.conVarList.extend( [ topBar, modData, botBar ] )
-	file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] < - false
+	file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] < - false
 }
 
 void function AddModCategory( string catName )
 {
-	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) )
-		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a category before a mod title!"
+	if ( !( getstackinfos(2)[ "func" ] in file.setFuncs ) )
+		throw getstackinfos(2)[ "src" ] + " #" + getstackinfos(2)[ "line" ] + "\nCannot add a category before a mod title!"
 	if ( file.currentCat != "" )
 	{
 		ConVarData space
@@ -801,13 +801,13 @@ void function AddModCategory( string catName )
 	file.conVarList.append( catData )
 	
 	file.currentCat = catName
-	file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] = true
+	file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] = true
 }
 
 void function AddModSettingsButton( string buttonLabel, void functionref() onPress )
 {
-	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] )
-		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a button before a category and mod title!"
+	if ( !( getstackinfos(2)[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] )
+		throw getstackinfos(2)[ "src" ] + " #" + getstackinfos(2)[ "line" ] + "\nCannot add a button before a category and mod title!"
 
 	ConVarData data
 
@@ -822,8 +822,8 @@ void function AddModSettingsButton( string buttonLabel, void functionref() onPre
 
 void function AddConVarSetting( string conVar, string displayName, string type = "" )
 {
-	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] )
-		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a setting before a category and mod title!"
+	if ( !( getstackinfos(2)[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] )
+		throw getstackinfos(2)[ "src" ] + " #" + getstackinfos(2)[ "line" ] + "\nCannot add a setting before a category and mod title!"
 	ConVarData data
 
 	data.catName = file.currentCat
@@ -837,8 +837,8 @@ void function AddConVarSetting( string conVar, string displayName, string type =
 
 void function AddConVarSettingSlider( string conVar, string displayName, float min = 0.0, float max = 1.0, float stepSize = 0.1, bool forceClamp = false )
 {
-	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] )
-		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a setting before a category and mod title!"
+	if ( !( getstackinfos(2)[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] )
+		throw getstackinfos(2)[ "src" ] + " #" + getstackinfos(2)[ "line" ] + "\nCannot add a setting before a category and mod title!"
 	ConVarData data
 
 	data.catName = file.currentCat
@@ -857,8 +857,8 @@ void function AddConVarSettingSlider( string conVar, string displayName, float m
 
 void function AddConVarSettingEnum( string conVar, string displayName, array< string > values )
 {
-	if ( !( getstackinfos( 2 )[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos( 2 )[ "func" ] ) ] )
-		throw getstackinfos( 2 )[ "src" ] + " #" + getstackinfos( 2 )[ "line" ] + "\nCannot add a setting before a category and mod title!"
+	if ( !( getstackinfos(2)[ "func" ] in file.setFuncs ) || !file.setFuncs[ expect string( getstackinfos(2)[ "func" ] ) ] )
+		throw getstackinfos(2)[ "src" ] + " #" + getstackinfos(2)[ "line" ] + "\nCannot add a setting before a category and mod title!"
 	ConVarData data
 
 	data.catName = file.currentCat
@@ -1065,7 +1065,7 @@ void function OnClearButtonPressed( var button )
 	file.filterText = ""
 	Hud_SetText( Hud_GetChild( file.menu, "BtnModsSearch" ), "" )
 
-	OnFiltersChange( 0 )
+	OnFiltersChange(0)
 }
 
 string function SanitizeDisplayName( string displayName )
