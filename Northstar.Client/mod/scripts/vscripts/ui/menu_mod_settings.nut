@@ -527,7 +527,7 @@ void function SetModMenuNameText( var button )
 	var topLine = Hud_GetChild(panel, "TopLine")
 	var modTitle = Hud_GetChild(panel, "ModTitle")
 	var customMenuButton = Hud_GetChild( panel, "OpenCustomMenu")
-	var slider = Hud_GetChild(panel, "Slider")
+	var slider = Hud_GetChild( panel, "Slider" )
 	Hud_SetVisible( slider, false )
 	Hud_SetEnabled( slider, true )
 
@@ -605,7 +605,7 @@ void function SetModMenuNameText( var button )
 	else if ( conVar.isCategoryName ) {
 		Hud_SetText( label, conVar.catName ) 
 		// Hud_SetText( resetButton, "#MOD_SETTINGS_RESET_ALL" ) 
-		// Hud_SetSize( resetButton, int(120 * scaleX), int(40 * scaleY) )
+		// Hud_SetSize( resetButton, int( 120 * scaleX ), int( 40 * scaleY ) )
 		Hud_SetPos( label, 0, 0 )
 		Hud_SetSize( label, int( scaleX * ( 1180 - 420 - 85 ) ), int( scaleY * 40 ) )
 		// Hud_SetSize( customMenuButton, int( 85 * scaleX ), int( 40 * scaleY ) )
@@ -644,7 +644,7 @@ void function SetModMenuNameText( var button )
 		Hud_SetVisible( textField, true )
 		// Hud_SetVisible( enumButton, true )
 		Hud_SetVisible( resetButton, true )
-		Hud_Show( resetVGUI)
+		Hud_Show( resetVGUI )
 	}
 }
 
