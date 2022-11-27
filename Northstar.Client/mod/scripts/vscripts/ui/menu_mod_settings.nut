@@ -105,28 +105,10 @@ void function InitModMenu()
 		}
 	}*/
 
-	// // // // // // // // // // // // // // /
+	/////////////////////////////
 	// BASE NORTHSTAR SETTINGS // 
-	// // // // // // // // // // // // // // /
-
-	// most of these are overrided in the cfg, maybe ask bob to remove the cfg stuff from there?
-	// at the same time, might fuck with dedis so idk.
-	// these are pretty long too, might need to e x t e n d the settings menu
-	AddModTitle( "#NORTHSTAR_BASE_SETTINGS" )
-	AddModCategory( "#PRIVATE_MATCH" )
-	AddConVarSettingEnum( "ns_private_match_only_host_can_change_settings", "#ONLY_HOST_MATCH_SETTINGS", [ "#NO", "#YES" ] )
-	AddConVarSettingEnum( "ns_private_match_only_host_can_change_settings", "#ONLY_HOST_CAN_START_MATCH", [ "#NO", "#YES" ] )
-	AddConVarSettingSlider( "ns_private_match_countdown_length", "#MATCH_COUNTDOWN_LENGTH", 0, 30, 0.5 )
-	// probably shouldn't add this as a setting?
-	// AddConVarSettingEnum( "ns_private_match_override_maxplayers", "Override Max Player Count", "Northstar - Server", [ "#NO", "#YES" ] )
-	AddModCategory( "#SERVER" )
-	AddConVarSettingEnum( "ns_should_log_unknown_clientcommands", "#LOG_UNKNOWN_CLIENTCOMMANDS", [ "#NO", "#YES" ] )
-	AddConVarSetting( "ns_disallowed_tacticals", "#DISALLOWED_TACTICALS" )
-	AddConVarSetting( "ns_disallowed_tactical_replacement", "#TACTICAL_REPLACEMENT" )
-	AddConVarSetting( "ns_disallowed_weapons", "#DISALLOWED_WEAPONS" )
-	AddConVarSetting( "ns_disallowed_weapon_primary_replacement", "#REPLACEMENT_WEAPON" )
-	AddConVarSettingEnum( "ns_should_return_to_lobby", "#SHOULD_RETURN_TO_LOBBY", [ "#NO", "#YES" ] )
-
+	/////////////////////////////
+  
 	/*
 	AddModTitle( "^FF000000EXAMPLE" )
 	AddModCategory( "I wasted way too much time on this..." )
@@ -281,9 +263,9 @@ void functionref() function ResetConVarEventHandler( int modIndex )
 	}
 }
 
-// // // // // // // // // // // // 
-// slider
-// // // // // // // // // // // // 
+////////////
+// slider //
+////////////
 void function UpdateMouseDeltaBuffer( int x, int y )
 {
 	mouseDeltaBuffer.deltaX += x
@@ -320,6 +302,7 @@ void function SliderBarUpdate()
 	float jump = minYPos - ( useableSpace / ( float( file.filteredList.len() ) ) )
 
 	// got local from official respaw scripts, without untyped throws an error
+
 	local pos =	Hud_GetPos( sliderButton )[1]
 	local newPos = pos - mouseDeltaBuffer.deltaY
 	FlushMouseDeltaBuffer()
@@ -337,9 +320,9 @@ void function SliderBarUpdate()
 
 void function UpdateListSliderHeight()
 {
-	var sliderButton = Hud_GetChild( file.menu , "BtnModListSlider" )
-	var sliderPanel = Hud_GetChild( file.menu , "BtnModListSliderPanel" )
-	var movementCapture = Hud_GetChild( file.menu , "MouseMovementCapture" )
+	var sliderButton = Hud_GetChild( file.menu, "BtnModListSlider" )
+	var sliderPanel = Hud_GetChild( file.menu, "BtnModListSliderPanel" )
+	var movementCapture = Hud_GetChild( file.menu, "MouseMovementCapture" )
 	
 	float mods = float ( file.filteredList.len() )
 
@@ -351,9 +334,9 @@ void function UpdateListSliderHeight()
 	if ( height > maxHeight ) height = maxHeight
 	if ( height < minHeight ) height = minHeight
 
-	Hud_SetHeight( sliderButton , height )
-	Hud_SetHeight( sliderPanel , height )
-	Hud_SetHeight( movementCapture , height )
+	Hud_SetHeight( sliderButton, height )
+	Hud_SetHeight( sliderPanel, height )
+	Hud_SetHeight( movementCapture, height )
 }
 
 void function UpdateList()
