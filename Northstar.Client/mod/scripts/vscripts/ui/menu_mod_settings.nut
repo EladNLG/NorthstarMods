@@ -560,6 +560,7 @@ void function SetModMenuNameText( var button )
 		Hud_SetVisible( enumButton, false )
 		Hud_SetVisible( resetButton, false )
 		Hud_SetVisible( modTitle, false )
+		Hud_SetVisible( resetVGUI, false )
 		Hud_SetVisible( customMenuButton, true )
 		Hud_SetText( customMenuButton, conVar.displayName )
 	}
