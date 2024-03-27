@@ -52,7 +52,7 @@ void function InitMainMenu()
 
 #if DEV
 	if ( DevStartPoints() )
-		AddMenuFooterOption( menu, BUTTON_SHOULDER_LEFT, "#Y_BUTTON_DEV_MENU", "#DEV_MENU", OpenSinglePlayerDevMenu )
+		AddMenuFooterOption( menu, BUTTON_Y, "#Y_BUTTON_DEV_MENU", "#DEV_MENU", OpenSinglePlayerDevMenu )
 #endif // DEV
 }
 
@@ -584,24 +584,22 @@ void function DoGameNeedsToInstallDialog()
 
 void function UpdateTrialLabel()
 {
-	//bool isTrialVersion
-	//bool lastIsTrialVersion = Script_IsRunningTrialVersion()
+	bool isTrialVersion
+	bool lastIsTrialVersion = Script_IsRunningTrialVersion()
 
-	Hud_SetColor( file.trialLabel, 103, 252, 133, 255 )
-	Hud_SetText( file.trialLabel, "+ RONIN 2: The Sequel" )
-	Hud_SetVisible( file.trialLabel, true )
+	Hud_SetVisible( file.trialLabel, lastIsTrialVersion )
 
-	//while ( GetTopNonDialogMenu() == file.menu )
-	//{
-	//	isTrialVersion = Script_IsRunningTrialVersion()
-	//
-	//	if ( isTrialVersion != lastIsTrialVersion )
-	//		Hud_SetVisible( file.trialLabel, isTrialVersion )
-	//
-	//	lastIsTrialVersion = isTrialVersion
-	//
-	//	WaitFrame()
-	//}
+	while ( GetTopNonDialogMenu() == file.menu )
+	{
+		isTrialVersion = Script_IsRunningTrialVersion()
+
+		if ( isTrialVersion != lastIsTrialVersion )
+			Hud_SetVisible( file.trialLabel, isTrialVersion )
+
+		lastIsTrialVersion = isTrialVersion
+
+		WaitFrame()
+	}
 }
 
 void function OpenSinglePlayerDevMenu( var button )

@@ -3,7 +3,7 @@ globalize_all_functions
 
 UIPresenceStruct function DiscordRPC_GenerateUIPresence( UIPresenceStruct uis )
 {
-	if ( uiGlobal.isLoading )
+	if ( uiGlobal.loadingLevel != "" )
 		uis.gameState = eDiscordGameState.LOADING;
 	else if ( uiGlobal.loadedLevel == "" )
 		uis.gameState = eDiscordGameState.MAINMENU;

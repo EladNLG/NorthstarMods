@@ -114,13 +114,6 @@ void function InitModMenu()
 		"#RELOAD_MODS",
 		OnReloadModsButtonPressed
 	)
-	AddMenuFooterOption(
-		file.menu,
-		BUTTON_BACK,
-		PrependControllerPrompts( BUTTON_Y, "#AUTHENTICATION_AGREEMENT" ),
-		"#AUTHENTICATION_AGREEMENT",
-		OnAuthenticationAgreementButtonPressed
-	)
 
 	// Nuke weird rui on filter switch
 	RuiSetString( Hud_GetRui( Hud_GetChild( file.menu, "SwtBtnShowFilter")), "buttonText", "")
@@ -222,11 +215,6 @@ void function OnModButtonPressed( var button )
 void function OnReloadModsButtonPressed( var button )
 {
 	ReloadMods()
-}
-
-void function OnAuthenticationAgreementButtonPressed( var button )
-{
-	NorthstarMasterServerAuthDialog()
 }
 
 void function OnModLinkButtonPressed( var button )
